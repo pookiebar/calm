@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calm Connect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .quote {
+            font-style: italic;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .breathing {
+            margin-top: 20px;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: breathe 4s infinite alternate;
+        }
+        @keyframes breathe {
+            from { transform: scale(1); }
+            to { transform: scale(1.2); }
+        }
+        .affirmation {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #007bff;
+        }
+        .timer {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+        .nature-sounds {
+            margin-top: 20px;
+        }
+        .nature-sounds audio {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to Your Calm Space</h2>
+        <p class="quote">You are safe. You are not alone.</p>
+        
+        <!-- Breathing exercise circle -->
+        <div class="breathing">Breathe</div>
+        
+        <!-- Positive Affirmation Section -->
+        <div class="affirmation">
+            <p id="affirmation-text">You are strong, capable, and worthy.</p>
+        </div>
+        <button onclick="generateAffirmation()">Get a New Affirmation</button>
+
+        <!-- Relaxation Timer Section -->
+        <div class="timer">
+            <p>Relaxation Timer</p>
+            <p id="countdown">5:00</p>
+            <button onclick="startTimer()">Start Breathing Exercise</button>
+        </div>
+
+        <!-- Nature Sounds Section -->
+        <div class="nature-sounds">
+            <p>Relax with calming nature sounds:</p>
+            <audio controls>
+                <source src="ocean-waves.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <!-- Background Color Changer -->
+        <button onclick="changeBackgroundColor()">Change Background Color</button>
+    </div>
+
+    <script>
+        const affirmations = [
+            "You are strong, capable, and worthy.",
+            "You are enough just as you are.",
+            "You deserve love and happiness.",
+            "You are in control of your peace.",
+            "You have the power to create change.",
+            "Your presence makes a difference.",
+            "You are deserving of all the good things coming your way."
+        ];
+
+        let timer;
+        let timeLeft = 300; // 5 minutes in seconds
+
+        function generateAffirmation() {
+            const randomIndex = Math.floor(Math.random() * affirmations.length);
+            document.getElementById("affirmation-text").textContent = affirmations[randomIndex];
+        }
+
+        function startTimer() {
+            if (timer) {
+                clearInterval(timer);
+            }
+            timer = setInterval(function() {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById("countdown").textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    alert("Breathing exercise complete. Great job!");
+                    timeLeft = 300;
+                }
+            }, 1000);
+        }
+
+        function changeBackgroundColor() {
+            const colors = ["#f0f8ff", "#d4f1f4", "#a3c8d4", "#b6d7a8", "#f5e1e1"];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.style.backgroundColor = randomColor;
+        }
+    </script>
+</body>
+</html>
